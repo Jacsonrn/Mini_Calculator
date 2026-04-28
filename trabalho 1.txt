@@ -1,0 +1,807 @@
+https://lh3.googleusercontent.com/notebooklm/ANHLwAyNUZWYfB_0MWXMQvsrb1inDIrJs8F4Zuyj_iAWbsnfsxbgthu1CXRF7t1gjgH_TIiE5E8qFonM7P72af78F94qHS2GVok7AZTfP0DreYaBnPWzz_mYXYDO4nITVQRv5KslzBiV=w115-h47-v0
+https://lh3.googleusercontent.com/notebooklm/ANHLwAw2KDACh3wZFqvSBRzhoGU5xVzQaNPRqNCH3HjG2tD4fpolQxGQ5lIZXZWqmvdzij6Jz7MsYqfLrSMQmv7UaPgTgP0OBi7PPxO0kO0o3Ih6_LO0j-55ZTS3xs-GTfMdCGGv1mby=w116-h48-v0
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE CENTRO DE TECNOLOGIA
+DEPARTAMENTO DE ENGENHARIA DE COMPUTAÇÃO E AUTOMAÇÃO
+BIGINT – INTEIROS DE VALOR MÁXIMO ILIMITADO PROFESSOR: ADELARDO ADELINO DANTAS DE MEDEIROS
+O objetivo do projeto é desenvolver uma classe C++, denominada BigInt, para representar nú-
+meros inteiros positivos, nulos ou negativos com qualquer número de dígitos. A classe deve gerenciar a memória para armaze-nar os inteiros, fornecer mecanismos de entrada e saída em console e realizar as operações mate-máticas fundamentais (soma, multiplicação, etc.).
+IMPLEMENTAÇÃO Tendo em vista que o objetivo principal é avaliar a utilização correta de:
+ boas técnicas de programação;
+ ponteiros e alocação dinâmica de memória; e
+ classes; as regras a seguir devem ser obrigatoriamente seguidas no desenvolvimento do projeto:
+ No desenvolvimento do projeto, devem ser utilizadas TODAS as boas técnicas de pro-gramação abordadas na disciplina até o mo-mento, incluindo: o Gestão da memória dinâmica. o Divisão de um projeto em arquivos. o Declaração e definição de funções. o Construtores e destrutores em classes. o Sobrecarga de operadores em classes.
+ A representação dos inteiros deve ser feita utilizando uma classe C++, seguindo TODAS as especificações contidas neste documento.
+ Na classe, o armazenamento dos dígitos do inteiro deve ser feito em um array dinâmico, representado por um ponteiro convencional (não inteligente) e utilizando as primitivas bá-
+sicas de alocação de memória (new e delete).
+ A área de memória para conter os dígitos do inteiro deve estar sempre alocada para conter exatamente a quantidade correta de dígitos.
+ A implementação deve utilizar apenas o sub-conjunto das funcionalidades C++ estudadas nessa unidade, sem usar recursos que serão abordados futuramente, tais como: o exceções;
+o tipos baseados em templates: pair, con-
+têineres STL (vector, list, etc.);
+o algoritmos STL (all_of, equal, fill, co-
+py, find, count, etc.);
+o herança entre classes; e o métodos virtuais.
+ O arquivo principal disponível no SIGAA (bi-
+gint-main.cpp) e a função main que ele con-
+tém não devem ser modificados. A classe a ser desenvolvida deve permitir a execução desse programa exatamente como foi disponi-bilizado, porém sem se limitar ao que for necessário para executá-lo. Todas as fun-cionalidades descritas nessa especificação devem ser implementadas, mesmo que não
+sejam utilizadas na main.
+ESPECIFICAÇÃO DA CLASSE
+O inteiro será representado e armazenado inter-namente na classe por 3 (três) dados:
+ booleano neg – será true se o número for ne-
+gativo e false se for positivo ou nulo.
+ inteiro nDig – quantidade de dígitos do núme-
+ro,sempre≥1.
+ ponteiro d, sempre apontando para um array
+com nDig inteiros de 8 bits (int8_t), todos
+com valores entre 0 e 9.
+class BigInt {
+...
+private:
+bool neg;
+int nDig;
+int8_t* d;
+ATENÇÃO: os elementos do array de dígitos (d)
+são armazenados na ordem inversa à ordem na qual aparecem no número inteiro. O primeiro
+elemento do array, d[0], corresponde ao dígito
+menos significativo do número. Por exemplo, se o número é 357, então: d→[7,5,3]
+Essa organização é adotada para facilitar a im-plementação das operações (soma, multiplicação, etc.) com inteiros. ATENÇÃO: O dígito mais significativo nunca po-de ser nulo, pois, nesse caso, o número de dígi-
+tos (nDig) deveria ser reduzido de 1 unidade e
+esse último elemento deveria ser eliminado do array de dígitos. A única exceção é para inteiros
+com um único dígito (nDig == 1), para ser possí-
+vel representar o número 0 (zero).
+VALOR REPRESENTAÇÃO
+CORRETA INCORRETA
+75 nDig = 2
+d→[5,7]nDig = 3
+d→[5,7,0]
+0 nDig = 1
+d→[0]
+nDig = 3
+d→[0,0,0]
+nDig = 0
+d == nullptr
+https://lh3.googleusercontent.com/notebooklm/ANHLwAzFflPaQs3Vfoo6AGJq9vcjEPWY-0GaPH_RdOHnt3b4fJIajyEUpPwXPinnHowUcoyM-CmuuNlPuY1dWd4wGFG4qHzrmC_swHDkAaYYLbALr56BA1_O3W-JPV_CRLrtqRUe4yJDZQ=w115-h47-v0
+https://lh3.googleusercontent.com/notebooklm/ANHLwAzx3jWQtUXntqwf0HrsriXG3rpHq79L7Bj6ibd7eFxo-qr5yx_FIVYNVBeygz62tZwhbcKKI90e-2zvDwx-DCL687mwJ3NbaYRe-elwvwW9eBKJspd-h2acRmO6YgTNA7cx2sfdTQ=w116-h48-v0
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE CENTRO DE TECNOLOGIA
+DEPARTAMENTO DE ENGENHARIA DE COMPUTAÇÃO E AUTOMAÇÃO
+FUNÇÕES OBRIGATÓRIAS DA CLASSE Desenvolva ao menos as seguintes funcionalida-
+des para a classe BigInt:
+ O construtor default, que cria um inteiro com
+valor 0 (zero): neg é false, nDig é 1 e d aponta
+para um array com 1 int8_t de valor 0.
+Construtor default
+neg←falsenDig←1
+d←1int8 
+t
+​
+ devalor0
+ATENÇÃO: O construtor default é fornecido já
+implementado no arquivo incompleto bigint.cpp
+e não pode ser modificado. DICA: Lembre-se que qualquer construtor deve inicializar todos seus dados membros, seja utili-zando os construtores das classes base, como foi feito no construtor default já implementado no
+arquivo incompleto bigint.cpp, seja delegando a
+outro construtor da própria classe.  O destrutor da classe.  Um construtor específico privado que cria um
+BigInt a partir de dois parâmetros:
+o um booleano, o sinal do BigInt; e
+o um inteiro, o número de dígitos do BigInt.
+Todos os dígitos são inicializados com valor 0.
+Construtor a partir de bool IsNeg e int Size neg←IsNeg
+nDig←Size(seSize≥1)ou1(seSize<1)
+d←nDigint8 
+t
+​
+ ,todoscomvalor0
+ATENÇÃO: Os objetos construídos por esse construtor podem ser inválidos, por terem mais de um dígito e serem todos 0 (zero). Por essa razão: 1. O construtor é privado, para não permitir que
+seja utilizado pelo usuário para criar objetos inválidos.
+2. Deve ser utilizado apenas para criar objetos intermediários em outras funções da classe.
+DICA: Os construtores default e privado podem evitar repetição do código na implementação de: 1. outros construtores, delegando a inicialização
+a esses construtores básicos, como foi feito no construtor por cópia que já está implementado
+no arquivo incompleto bigint.cpp; e
+2. funções membro, atribuindo variáveis sem nome criadas com esses construtores básicos, como foi feito para atribuir o valor inicial 0 (ze-
+ro) na função operator>> que já está imple-
+mentado no arquivo incompleto bigint.cpp.
+ O construtor por cópia, que delega a inicializa-ção dos dados membro ao construtor específi-co privado.
+ATENÇÃO: O construtor por cópia é fornecido já
+implementado no arquivo incompleto bigint.cpp
+e não pode ser modificado.  O construtor por movimento.  O operador de atribuição por cópia.  O operador de atribuição por movimento. ATENÇÃO: Em todas as outras funções da clas-se descritas a partir deste ponto da especificação,
+incluindo novos construtores, evite usar new e
+delete. Use os construtores e operadores de
+atribuição já implementados para lidar com as operações de gerenciamento de memória.  As funções de consulta:
+o isNeg() e size(): retornam neg e nDig,
+respectivamente; o isZero(): retorna true se for zero (nDig=1
+e d[0]=0), false caso contrário; e
+o operator[](int i): retorna o i-ésimo dí-
+gito,convertidoparaint.Sei≥size()ou
+i<0, retorna 0 sem mensagem de erro.
+ Um construtor específico que cria um BigInt
+de valor igual ao parâmetro (long long int).
+o O construtor também deve ser conversor
+detipolonglongint→BigInt.
+o A quantidade de dígitos de um inteiro N é 1, se N=0; ou 1 mais a parte inteira do lo-
+garitmo base 10 (log10) do valor double
+absoluto(fabs)deN,seN
+
+=0.
+o Os dígitos são o valor absoluto dos restos das divisões inteiras sucessivas por 10.
+Construtor a partir de um inteiro longo N
+Cria com sinal (N<0) e com 1 dígito, se N=0, ou
+1+int(log10(fabs(N)))d 
+ı
+ˊ
+ gitos,seN
+
+=0PARA i DE 0 ATÉ size()-1
+∣d[i]←∣resto(N,10)∣//absdoresto
+∣N←div 
+i
+​
+ nt(N,10)
+FIM PARA
+ATENÇÃO: Na implementação do construtor a partir de um inteiro longo:
+1. Não use abs(N), llabs(N) ou -N para calcular
+o valor absoluto (em módulo) do parâmetro N,
+pois, se N for o menor long long int possí-
+vel (LLONG_MIN), não existe o positivo desse
+valor. Use apenas a função que calcula o valor
+absoluto de um double (fabs). abs pode ser
+https://lh3.googleusercontent.com/notebooklm/ANHLwAy0uwIHlg0wDlgdmzxmOwpgEPkniqUTlw3xVj30jdre71mWzK-05prbVDIJRgv2CAuj-zlEwrj0Y_324R_a3eW0YDG_0VBs0YTvTYPcz-DqSxa2od_pp5GYBL5yymOcrFyvkh9VBg=w115-h47-v0
+https://lh3.googleusercontent.com/notebooklm/ANHLwAyLVZNdH5pCULZ36V24Q-ra2bAWesUwo7GDC998gowlFQGpZ0Cdo8MKLOPPp64G3x61SSXJeeB0JGGouMjVcVanMhz3LlyRv0fTxVYu82euuhU9kYOI6FTn3YEHMNytYgzLUi5C=w116-h48-v0
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE CENTRO DE TECNOLOGIA
+DEPARTAMENTO DE ENGENHARIA DE COMPUTAÇÃO E AUTOMAÇÃO
+utilizado em outros casos, por exemplo para calcular o módulo do resto da divisão inteira.
+2. Não assuma que a constante LLONG_MIN tem
+um valor fixo, pois varia entre compiladores.
+ATENÇÃO: o construtor a partir de um long
+long int já é fornecido parcialmente implemen-
+tada no arquivo incompleto bigint.cpp. As par-
+tes já implementadas não podem ser modifica-das. Só devem ser feitos acréscimos, apenas nos locais indicados.  O método toInt para retornar um long long
+int de valor igual ao BigInt. Caso o valor do
+BigInt exceda os valores limite de um long
+long int, a função deve imprimir uma men-
+sagem de advertência em cerr e retornar 0
+o Inicializa o valor com 0 e percorre do dígito mais até o menos significativo, multiplican-do o valor por 10 e somando com o dígito.
+o Se o valor se tornar negativo, o limite má-
+ximo do long long int foi excedido.
+o Ao final, se o BigInt for negativo, retorna o
+negativo do valor calculado
+Convers 
+a
+~
+ oparainteiro:val←A.toInt()val←0
+PARA i DE A.size()-1 ATÉ 0
+∣val←10∗val+A.d[i]
+| SE (val < 0)
+| | Imprime mensagem de erro | | RETORNA 0
+| FIM SE
+FIM PARA
+SE(A.isNeg())val←−val
+RETORNA val
+Após concluir essa parte, você deve validar os
+construtores, os operadores de atribuição opera-
+tor=, as funções de consulta e o método toInt,
+executando um programa de teste (teste1) que os utilize com vários parâmetros.
+ O método privado correct para corrigir um
+BigInt caso seja gerado um resultado inter-
+mediário que não respeite a especificação: o Número com ‘0’ no(s) dígito(s) mais signifi-
+cativo(s) (ex.: 0075); ou o Zero negativo (-0). Se não houver erro, deixa o objeto inalterado.
+Correção
+// Elimina 0’s mais significativos
+newSize←size()
+ENQUANTO (newSize>1 E d[newSize-1]=0)
+∣newSize←newSize−1
+FIM ENQUANTO
+SE(newSize
+
+=size())
+| Faz o BigInt manter o sinal e passar a
+| ter newSize dígitos, iguais aos anteriores:
+∣depois[i]←antes[i]FIM SE
+// Corrige zero negativo
+SE (isZero())
+∣neg←false
+FIM SE
+ Um construtor que cria um BigInt a partir de
+uma string. o Não deve ser conversor de tipo.
+o O número de dígitos do BigInt é igual ao
+tamanho da string, menos 1 se o primeiro
+caractere for um sinal ('+' ou '-').
+o Os dígitos são os demais caracteres, con-
+vertidos para int8_t e na ordem inversa.
+o Deve imprimir mensagem de erro e fazer o
+BigInt ser 0 se a string for inválida.
+o correct deve ser chamada para corrigir
+números fora da especificação (0075, etc.).
+Construtor a partir de uma string S
+Cria com valor inicial 0 (igual ao default) SE (S.empty()) // String vazia
+| Imprime msg de erro e encerra (continua 0) FIM SE
+ini←0
+IsNeg←false
+SE (S[0]='+' OU S[0]='-')
+| SE (S.size()=1) // Só tem o sinal
+| | Imprime msg de erro e encerra (continua 0) | FIM SE
+∣IsNeg←(S[0]= 
+′
+ − 
+′
+ )
+∣ini←1
+FIM SE
+Faz ter sinal IsNeg e S.size()-ini dígitos PARA i DE 0 ATÉ size()-1
+∣c←S[S.size()−1−i]
+| SE (NÃO(isdigit(c)))
+| | Faz ser 0, imprime erro e encerra | FIM SE
+∣d[i]←converte 
+i
+​
+ nt8 
+t
+​
+ (c− 
+′
+ 0 
+′
+ )
+FIM PARA
+CORRIGE OBJETO
+https://lh3.googleusercontent.com/notebooklm/ANHLwAzAg_RS3CC1vzkuIQDfUvrSu09WpDzemb9zODJSzYcrfDKDNbTF1nG42RhrE_bbuIhgErF66n22dupYXvQUKoTZ0UGK_Ykqj_jne2p7B3pBvbkZdh_07gfcH_d2DXSJSKGk1k5P=w115-h47-v0
+https://lh3.googleusercontent.com/notebooklm/ANHLwAxSH4u_zjszP6hvuHR9YEiK7vlEWN8vjlWiSVKX-y9IwZPu2fa0k1oijE3EzjFwxqR6jDyx_dFnZu4cfRI0DIxEBiIr_OJri5fBPILpDePwg0oivUh2Uhz5kJQ3PwErj6nPnZEXsA=w116-h48-v0
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE CENTRO DE TECNOLOGIA
+DEPARTAMENTO DE ENGENHARIA DE COMPUTAÇÃO E AUTOMAÇÃO
+ATENÇÃO: o construtor a partir de string só deve gerar o número equivalente se a string for com-posta exclusivamente por um eventual sinal inicial, na primeira posição, e por dígitos. Qual-quer outro caractere, inclusive espaços, como nos exemplos a seguir, deve gerar a impressão de
+mensagem de erro e fazer o BigInt ser 0:
+BigInt("") -> erro e faz ser 0
+BigInt(" ") -> erro e faz ser 0
+BigInt("+")-> erro e faz ser 0
+BigInt("h") -> erro e faz ser 0
+BigInt(" 75") -> erro e faz ser 0
+BigInt("- 75") -> erro e faz ser 0
+BigInt("75.2") -> erro e faz ser 0
+BigInt("75 ") -> erro e faz ser 0
+BigInt("75+") -> erro e faz ser 0
+BigInt("75 38") -> erro e faz ser 0
+Devem ser aceitos, sem mensagem de erro e criando o BigInt com valor equivalente à string,
+as sequências que só contenham caracteres váli-dos, mesmo que precisem de correção ao final:
+BigInt("75") -> ok
+BigInt("+75") -> ok
+BigInt("-75") -> ok
+BigInt("-0") -> ok; correção ao final
+BigInt("0075") -> ok; correção ao final
+BigInt("-0075") -> ok; correção ao final
+ATENÇÃO: o construtor a partir de string já é fornecido parcialmente implementada no arquivo incompleto bigint.cpp. As partes já implemen-
+tadas não podem ser modificadas. Só devem ser feitos acréscimos, apenas nos locais indicados. Após concluir essa parte, você deve validar (tes-te2) o construtor a partir de uma string e, indire-
+tamente, a função correct, criando inteiros a
+partir de strings corretas; de strings incorretas que geram erros; e de strings que geram números que precisam ser corrigidos, porém sem gerar erros.
+ A função clássica (não é método) operator<<,
+com parâmetros stream e BigInt, para impri-
+mir no formato convencional para inteiros: o O sinal ‘-‘, se o número for negativo; e
+o Os dígitos, de d[size()-1] a d[0], desde
+que estejam entre 0 e 9; caso contrário, o que nunca deveria acontecer, deve ser im-presso ‘#’ em vez do dígito.
+ATENÇÃO: os dígitos são int8_t, equivalente a
+um char. Portanto, caso sejam impressos com <<,
+o que será impresso será o caractere ASCII cujo código é igual ao valor. Portanto, em vez de: ___ << B.d[i]; // IMPRIME VALOR ERRADO
+pode ser utilizado: ___ << static_cast<int>(B.d[i]);
+ou (melhor) o operator[], que já retorna um int: ___ << B[i];
+ A função clássica (não é método) operator>>,
+para permitir ler um BigInt da stream I. Deve
+seguir exatamente o padrão C++ para o ope-
+rador de extração (>>) de todas as classes:
+o Faz o BigInt ter valor 0 (zero).
+o Verifica erros na stream e descarta separa-dores iniciais (espaço, ENTER, TAB), tes-
+tando um objeto do tipo istream::sentry.
+ Se houve erro, encerra digitação.
+o Lê os caracteres válidos. Para BigInt, são
+os sinais ‘+’ e ‘-‘, se forem o primeiro carac-tere, e todos os dígitos (0 a 9, testados com isdigit) subsequentes.
+ Se for lido o sinal ‘-‘, faz neg ser true;
+caso contrário, permanece false.
+ Para obter o próximo caractere c a ser
+lido da stream I, mas sem excluí-lo, uti-
+lize c=I.peek(); para ler efetivamente,
+removendo da stream, use c=I.get();
+o A cada novo caractere lido que é um dígito:  Se o número de dígitos lidos for > 1:
+ Faz o BigInt passar a ter size()+1
+dígitos, mantendo o mesmo sinal.
+ Copia os dígitos atuais, avançando para uma posição mais significativa.
+ Coloca o caractere lido no início da área de dígitos (ou seja, como o dígito menos
+significativo), convertido para int8_t.
+o Encerra a leitura ao encontrar um caractere inválido, deixando os caracteres daí em di-ante disponíveis para a próxima leitura.
+o Caso o número de dígitos lidos seja 0, as-
+sinala erro: I.setstate(ios::failbit).
+o Podem ser digitadas expressões que ge-
+ram um BigInt com representação incorre-
+ta (0075, -0, etc.). Portanto, correct deve
+ser chamada após a digitação.
+https://lh3.googleusercontent.com/notebooklm/ANHLwAyiUi4ZKOqvKo2Bf0oAHuZ407ub3jtkkRivPc9q2QfbYEkvwJ28qb9-N4z6deAxwA7yZf9_s8dgmk92N8laCMyfV6OSyeh3fLYRkydx9Bb9VYRiT1e7A9pKLRu2Ir2Qhd4hLJfAbg=w115-h47-v0
+https://lh3.googleusercontent.com/notebooklm/ANHLwAzskOpMi_Rpb2xABK9FRQD8p72Bz9Rf_Km8MlEOf9RBzFH0dZjvPJtqgu8qmtHQ9UkM_noATDs72tkrrCAdwKy-88vCU4CFpRh2VSlpfwqT2Qb3vp_QF7btGIcurob0WGZ4LaC64A=w116-h48-v0
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE CENTRO DE TECNOLOGIA
+DEPARTAMENTO DE ENGENHARIA DE COMPUTAÇÃO E AUTOMAÇÃO
+Extração de um BigInt a partir da stream I
+Faz o BigInt passar a ser 0 (zero)
+Testa a stream e descarta separadores iniciais // istream::sentry s(I);
+SE (erro na stream), encerra // if(!s)
+c←pr 
+o
+ˊ
+ ximocaractereaserlido//peekSE (c='+' OU c='-')
+∣c←l 
+e
+^
+ caractere//get∣neg←(c= 
+′
+ − 
+′
+ )
+∣c←pr 
+o
+ˊ
+ ximocaractereaserlido//peekFIM SE
+numDigitos←0
+ENQUANTO (isdigit(c))
+∣c←l 
+e
+^
+ caractere//get∣numDigitos←numDigitos+1
+| SE (numDigitos > 1)
+| | Faz o BigInt manter o sinal e passar
+| | a ter size()+1 dígitos, avançando todos
+| | uma posição mais significativa à frente | FIM SE
+∣d[0]←converte 
+i
+​
+ nt8 
+t
+​
+ (c− 
+′
+ 0 
+′
+ )
+∣c←pr 
+o
+ˊ
+ ximocaractereaserlido//peekFIM ENQUANTO
+SE (numDigitos = 0)
+| Assinala erro | //I.setstate(ios::failbit) FIM SE
+CORRIGE OBJETO
+ATENÇÃO: os caracteres digitados devem ser
+convertidos diretamente para o BigInt. Não de-
+vem ser armazenados em um objeto provisório (por exemplo, uma string) e depois convertidos.
+ATENÇÃO: como o operator>> para BigInt
+deve seguir o padrão C++ para todas as classes, note que esse comportamento é diferente do previsto no construtor a partir de uma string. Por
+essa razão, não implemente o operator>> lendo
+uma string e utilizando o construtor a partir dessa string. Use obrigatoriamente a implementação parcial fornecida.
+ATENÇÃO: A função operator>> já é fornecida
+parcialmente implementada no arquivo incomple-to bigint.cpp. As partes já implementadas não
+podem ser modificadas. Só devem ser feitos acréscimos, apenas nos locais indicados. Após concluir essa parte, você deve validar (tes-te3) os operadores de entrada e saída opera-
+tor<< e operator>> em diversas situações:
+ Imprimindo números nulos, positivos e negati-vos, pequenos e grandes.
+ Digitando números inválidos e números váli-dos de diferentes tipos (nulos, positivos e ne-gativos, pequenos e grandes, que precisam ou não de correção).
+ O operator== que retorna true se os dois
+BigInt forem iguais (mesmo sinal, mesmo
+número de dígitos e todos os dígitos iguais); e false caso contrário.
+ O operator!=, que deve ser implementado
+utilizando a negação da igualdade: A!=B→N 
+A
+~
+ O(A==B)
+ O operator< que retorna true se o objeto for
+menor que o parâmetro (outro BigInt); ou fal-
+se caso contrário.
+Comparação: A<B // Os sinais são diferentes?
+// Se sim, negativo é sempre menor
+SE(A.isNeg()
+
+=B.isNeg())
+| RETORNA A.isNeg()
+FIM SE
+// Os dois têm o mesmo sinal
+SE (!A.isNeg())
+| // Ambos positivos ou nulos
+∣SE(A.size()
+
+=B.size())
+| | RETORNA A.size() < B.size()
+| FIM SE
+| // Mesmo número de dígitos
+| PARA i DE A.size()-1 ATÉ 0
+∣∣SE(A.d[i]
+
+=B.d[i])
+| | | RETORNA A.d[i] < B.d[i]
+| | FIM SE
+| FIM PARA
+CASO CONTRÁRIO
+| // Ambos negativos
+∣SE(A.size()
+
+=B.size())
+| | RETORNA A.size() > B.size()
+| FIM SE
+| // Mesmo número de dígitos
+| PARA i DE A.size()-1 ATÉ 0
+∣∣SE(A.d[i]
+
+=B.d[i])
+| | | RETORNA A.d[i] > B.d[i]
+| | FIM SE
+| FIM PARA
+FIM SE
+// Números idênticos
+RETORNA false
+ Os demais operadores de comparação, que
+devem ser implementados utilizando o opera-
+tor< e a negação: A>B→B<A
+A≥B→N 
+A
+~
+ O(A<B)
+A≤B→N 
+A
+~
+ O(B<A)
+Após concluir essa parte, você deve validar (tes-
+te4) os operadores de comparação ==, !=, <, <=,
+> e >= em diversas situações (0, positivos e nega-
+tivos, números com sinais diferentes, números com quantidades de dígitos diferentes, etc.).
+https://lh3.googleusercontent.com/notebooklm/ANHLwAzzmXwBOZH229BCqdi8aHI6T4VUL8C47SuHrLNkkHxU6t3Jzabz2v0OYsBL945RsfU7Fnzj3zXmC0b-rR0u40S0QSrfOdh5OT2O8c2tVoTGyf4D7St3og7Cs8kNuCmWl8PPZqx9RA=w115-h47-v0
+https://lh3.googleusercontent.com/notebooklm/ANHLwAzbv22qzvaV3ygBnY1T-9qtiIsKy4jEz-zt0TRnCMyyF2dJvtlNURZ-xWxAiF3-hjRFwwOnYg3462V_zGmjW7iHq2Ot-tGj0p2zf4nmjWYPei4bKdHGOE73tqLeAmIdlKY2zxULqA=w116-h48-v0
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE CENTRO DE TECNOLOGIA
+DEPARTAMENTO DE ENGENHARIA DE COMPUTAÇÃO E AUTOMAÇÃO
+ O método privado increment para incremen-
+tar os dígitos (o módulo) de um BigInt:
+o Faz todos os dígitos menos significativos que forem iguais a 9 passarem a ser 0.
+o Incrementa o dígito mais significativo se-guinte, caso exista.
+o Se não existir, o número de dígitos do Bi-
+gInt precisa ser aumentado, com o dígito
+mais significativo sendo 1 e os demais, 0. Esse método privado existe para evitar repeti-ção de código na implementação dos operado-res de incremento e decremento (a seguir).
+Incrementar os dígitos (o módulo)
+k←0
+ENQUANTO (k<size() E d[k]=9)
+∣d[k]←0
+∣k←k+1
+FIM ENQUANTO
+SE (k<size())
+∣d[k]←d[k]+1
+CASO CONTRÁRIO
+| // Aumenta nº de dígitos. Exemplo:
+| // No inicio: [9 9 9 9]
+| // Agora: [0 0 0 0]
+| // Depois: [0 0 0 0 1]
+| Faz o BigInt manter o sinal e passar
+| a ter size()+1 dígitos, todos de valor 0
+| Faz o novo dígito mais significativo ter valor 1 FIM SE
+ O método privado decrement para decremen-
+tar os dígitos (o módulo) de um BigInt:
+o Se o número for 0, faz ser -1 e encerra. o Faz todos os dígitos menos significativos
+que forem iguais a 0 passarem a ser 9. o Decrementa o dígito mais significativo se-
+guinte. o Ao final, se o dígito mais significativo for 0,
+chama a função correct.
+Esse método privado existe para evitar repeti-ção de código na implementação dos operado-res de incremento e decremento (a seguir).
+Decrementar os dígitos (o módulo) SE (isZero())
+| Faz ser -1 e encerra FIM SE
+k←0
+ENQUANTO (k<size() E d[k]=0)
+∣d[k]←9
+∣k←k+1
+FIM ENQUANTO
+d[k]←d[k]−1
+SE (d[size()-1]=0)
+| CORRIGE OBJETO
+FIM SE
+ Os operadores pré-fixados de incremento ope-
+rator++() [++X] e decremento operator--()
+[--X], que retornam referência ao próprio obje-
+to incrementado ou decrementado.
+Incremento pré-fixado operator++() SE (NÃO(isNeg())) increment()
+CASO CONTRÁRIO decrement()
+RETORNA OBJETO
+Decremento pré-fixado operator--() SE (isNeg()) increment()
+CASO CONTRÁRIO decrement()
+RETORNA OBJETO
+ATENÇÃO: Os operadores pré-fixados de incre-mento e decremento são fornecidos já implemen-
+tados no arquivo incompleto bigint.cpp e não
+podem ser modificados. ATENÇÃO: Os operadores de incremento e de-cremento pré-fixados existem como alternativas mais rápidas e mais eficientes com relação a somar ou subtrair 1. Por isso, não podem ser implementados utilizados os operadores de adi-ção ou subtração. Use obrigatoriamente a im-plementação fornecida.
+ Os operadores pós-fixados operator++(int)
+[X++] e operator--(int) [X--], que retornam
+uma cópia do objeto antes do incremento ou decremento. Devem ser implementados utili-zando operadores pré-fixados: o Cria uma cópia do número. o Incrementa ou decrementa o número, utili-
+zando o operador pré-fixado. o Retorna a cópia (valor original).
+Após concluir essa parte, você deve validar (tes-te5) os operadores de incremento e decremento ++ (pré e pós) e –- (pré e pós) em diversas situa-
+ções (0, positivos e negativos, mudança de sinal nos dois sentidos, etc.), o que também vai testar
+indiretamente as funções increment e decre-
+ment.
+https://lh3.googleusercontent.com/notebooklm/ANHLwAxaBneR5Ivse-DQwCAInOKk89AyUqIAnRfn61r3xysiN_XSOo0w_h-8XkR27jmSMva9ymHarJlPLgNxUt7sgKf1mgXsi2ObBXHzEleFTJ7pbvOgfFBZCiLowDSmRJSsgATLtFYTfA=w115-h47-v0
+https://lh3.googleusercontent.com/notebooklm/ANHLwAxptssRGjXOa3uKWMb0RWq9rk-4hAXYZUvE7q7Pea1wiqgr24aeqbIoxI_Fh8LlFc60syg-UZScdJXelFtEZbLWE1rl16nf44cyvqU5KxLsnSGFg6LvfP2U-JuyIViHT7o1hF7WfA=w116-h48-v0
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE CENTRO DE TECNOLOGIA
+DEPARTAMENTO DE ENGENHARIA DE COMPUTAÇÃO E AUTOMAÇÃO
+ A função clássica abs(X) (não é um método,
+X.abs()), que retorna um BigInt igual ao va-
+lor absoluto (o módulo, sempre não negativo)
+do parâmetro X.
+ O operator+ unário (positivo de um BigInt),
+que deve retornar uma referência constante ao próprio objeto, sem modificação.
+ O operator- unário para retornar, por cópia, o
+negativo de um BigInt.
+o Lembre-se que o negativo de zero é o pró-prio zero, não -0.
+ O operator+ binário para fazer a soma de
+dois BigInt, retornando o BigInt resultado:
+o Na soma de 2 números com mesmo sinal:  O resultado terá o mesmo sinal dos 2
+números.  O número inicial (máximo) de dígitos do
+resultado é 1 + o maior número de dígi-tos dos 2 números sendo somados.
+ Cada dígito resultante é a soma dos 2 dígitos correspondentes, eventualmente adicionando o excedente (carry ou vai um) ao próximo dígito mais significativo.
+ Caso um número tenha menos dígitos que o outro, o valor correspondente de-ve ser substituído por 0, o que já é feito
+caso o dígito seja acessado com opera-
+tor[], e não diretamente pelo array d.
+ É necessário chamar a função de corre-ção após calcular, pois o(s) dígito(s) mais significativo(s) pode(m) ser '0'.
+o Na soma de 2 números com sinais diferen-tes, sendo o 1º de módulo maior que o 2º:  O resultado terá o mesmo sinal do nú-
+mero de maior módulo (o 1º número).  O número inicial (máximo) de dígitos do
+resultado será o número de dígitos do número de maior módulo (o 1º número).
+ Cada dígito resultante é o dígito do 1º número subtraído do dígito do 2º núme-ro, eventualmente subtraindo o que fal-tou (borrow ou vem um) do próximo dí-gito mais significativo.
+ Caso o 2º número tenha menos dígitos que o 1º, o valor correspondente deve ser substituído por 0, o que já é feito ca-so o dígito seja acessado utilizando o
+operator[] e não acessando direta-
+mente o array d.
+ É necessário chamar a função de corre-ção após calcular, pois o(s) dígito(s) mais significativo(s) pode(m) ser '0'.
+o Na soma de 2 números com sinais diferen-tes, sendo o 1º de módulo menor que o 2º, retorne a soma do 2º com o 1º.
+Soma:C←A+BSE (A.isNeg()=B.isNeg()) // Mesmo sinal
+| Cria C com mesmo sinal de A e com nº de
+| dígitos igual a 1+max(A.size(),B.size()) ∣carry←0
+| PARA i DE 0 ATÉ C.size()-1
+∣∣C.d[i]←A[i]+B[i]+carry
+| | SE (C.d[i] > 9)
+∣∣∣C.d[i]←C.d[i]−10
+∣∣∣carry←1
+| | CASO CONTRARIO
+∣∣∣carry←0
+| | FIM SE
+| FIM PARA
+| CORRIGE C
+| RETORNA C
+CASO CONTRÁRIO // Sinais diferentes
+∣SE(∣A∣≥∣B∣)
+| | Cria C com mesmo sinal de A e com nº
+| | de dígitos igual a A.size() ∣∣borrow←0
+| | PARA i DE 0 ATÉ C.size()-1
+∣∣∣C.d[i]←A[i]−B[i]−borrow
+| | | SE (C.d[i] < 0)
+∣∣∣∣C.d[i]←C.d[i]+10
+∣∣∣∣borrow←1
+| | | CASO CONTRARIO
+∣∣∣∣borrow←0
+| | | FIM SE
+| | FIM PARA
+| | CORRIGE C
+| | RETORNA C
+| CASO CONTRÁRIO // |A|<|B|
+| | RETORNA B+A
+| FIM SE
+FIM SE
+ O operator- binário para fazer a subtração de
+dois BigInt, implementado utilizando o nega-
+tivo de um número e a soma: A−B→A+(−B)
+Você deve validar (teste6) a função abs e os ope-
+radores aritméticos para calcular o positivo, o
+negativo, a soma e a subtração de BigInt, envol-
+vendo números:
+ positivos, negativos e nulos;
+ de módulo maior ou menor que o outro, apa-recendo à esquerda e à direita do operador; e
+ em situações com e sem necessidade de cor-reção do resultado.
+https://lh3.googleusercontent.com/notebooklm/ANHLwAywk8hoVR3DQdjicqaVhUf6IzeZDmWvLABMlTFT3p4zKhvc3_V9b0eVLvicG3EF3RMqFb_dip8Q5mTSWga_NEIxCf6dTuRcJkHTp3GARvF5MV5efbYpSLqAQdOGDEaS5Q1hBXz_Tw=w115-h47-v0
+https://lh3.googleusercontent.com/notebooklm/ANHLwAwVJqo2AYRi7l-N7380nVpqScqGQc7J1m0U4kiC5GlK-tVuy3vJfFoFSoLygPJbEGUfTneWl6nTOIp6Re5aKC2XZOAWW8HbIiRYTzMzhjClA__Bkq3s3HTzpKrToruO7Cbxj1XlHA=w116-h48-v0
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE CENTRO DE TECNOLOGIA
+DEPARTAMENTO DE ENGENHARIA DE COMPUTAÇÃO E AUTOMAÇÃO
+ o operator* binário para fazer o produto de
+dois BigInt, retornando o BigInt resultado.
+o Se algum dos 2 números for 0, retorne 0. o O sinal do produto é negativo se os sinais
+dos 2 números forem diferentes; e não ne-gativo se os sinais forem iguais.
+o A quantidade inicial de dígitos do resultado é a soma da quantidade de dígitos dos 2 números sendo multiplicados.
+o Todos os dígitos do resultado são iniciali-zados com 0.
+o Percorra os dígitos ai do 1º número, pulan-do os nulos; para cada um deles, percorra os dígitos bj do 2º número, pulando os nu-los. Para cada combinação, faça: $ ci+j ← ci+j + ai×bj $ Adicione o excedente ao próximo dígito
+mais significativo, e assim por diante, caso a soma gere novo excedente.
+o É necessário corrigir após calcular, pois os dígitos mais significativos podem ser '0'.
+Multiplica 
+c
+\c
+​
+  
+a
+~
+ o:C←A×BSE (A.isZero() OU B.isZero()) RETORNA 0
+Cria C, negativo se os 2 números têm sinal
+diferente, e não negativo caso contrário;
+e com A.size()+B.size() dígitos,
+todos inicializados com 0. PARA i DE 0 ATÉ A.size()-1
+∣SE(A.d[i]
+
+=0)
+| | PARA j DE 0 ATÉ B.size()-1
+∣∣∣SE(B.d[j]
+
+=0)
+∣∣∣∣k←i+j
+∣∣∣∣C.d[k]←C.d[k]+A.d[i]×B.d[j]
+| | | | ENQUANTO (C.d[k] > 9)
+∣∣∣∣∣carry←div 
+i
+​
+ nt(C.d[k],10)
+∣∣∣∣∣C.d[k]←resto(C.d[k],10)
+∣∣∣∣∣k←k+1
+∣∣∣∣∣C.d[k]←C.d[k]+carry
+| | | | FIM ENQUANTO
+| | | FIM SE
+| | FIM PARA
+| FIM SE
+FIM PARA
+CORRIGE C
+RETORNA C
+ O operator! unário para calcular o fatorial de
+um BigInt, retornando o BigInt C.
+o Se o número for negativo, imprima uma mensagem de advertência e retorne 0.
+o Por multiplicações sucessivas, faça C ser o
+produto de todos os inteiros até o número.
+o Retorne C
+Fatorial:C←!ASE (A.isNeg())
+| Emite mensagem de erro | RETORNA 0
+FIM SE
+C←1
+PARA N DE 2 ATÉ A
+∣C←C∗N
+FIM SE
+RETORNA C
+Você deve testar (teste7) os operadores aritméti-
+cos * e ! em diversas situações:
+ Números positivos, negativos, de módulo uni-tário (+1 e -1) e nulos (0);
+ Com e sem necessidade de correção e com resultados pequenos e grandes
+https://lh3.googleusercontent.com/notebooklm/ANHLwAz5w9JsFr88WW36bwcZcFS09uB8t-s-kMu38YGBcbuXDxR75uVwKEFgcpBOVvK5rYmLQdW1q5Eqvcygeq6Nx4LUHRmKZjmltPy7TczD_xHxMTGSdgOgVlKuWoDO-k9ngYyby0iZ=w115-h47-v0
+https://lh3.googleusercontent.com/notebooklm/ANHLwAwJGGMNH3i0yYagEQoojn71VxNa1ERjOQhFIvKzp-O3iXpa7tTuXYXJFMNuty7C25YB3ONXKV2SoOWL6f_-9TkKnRO_cN4tyVFLJ5uG98YxjkoSul3r16Q_aGG5Gu9WGMPtzrAPWg=w116-h48-v0
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE CENTRO DE TECNOLOGIA
+DEPARTAMENTO DE ENGENHARIA DE COMPUTAÇÃO E AUTOMAÇÃO
+ O operator<< de deslocamento à esquerda,
+que retorna o BigInt à esquerda do operador
+acrescido de tantos zeros quanto o inteiro à di-
+reita do operador. Por exemplo, se A=375,
+A<<2 retorna 37500.
+Deslocamento 
+a
+ˋ
+ esquerda:C←A<<N
+SE(N≤0OUA.isZero())RETORNAA
+Cria C com mesmo sinal de A e com
+A.size()+N dígitos, inicializados com 0. PARA i DE N ATÉ C.size()-1
+∣C.d[i]←A.d[i−N]
+FIM PARA
+RETORNA C
+ O operator>> de deslocamento à direita, que
+retorna o BigInt à esquerda do operador re-
+movendo tantos dígitos menos significativos quanto o inteiro à direita do operador. Por
+exemplo, se A=37542, A>>2 retorna 375.
+Deslocamento 
+a
+ˋ
+ direita:C←A>>NSE(N≤0OUA.isZero())RETORNAA
+SE(N≥A.size())RETORNA0
+Cria C com mesmo sinal de A e com
+A.size()-N dígitos PARA i DE 0 ATÉ C.size()-1
+∣C.d[i]←A.d[i+N]
+FIM PARA
+RETORNA C
+ATENÇÃO: Os operadores de deslocamento à esquerda e à direita existem como alternativas mais rápidas e mais eficientes com relação à multiplicação/divisão do número por 10
+N . Por isso,
+não podem ser implementados utilizados os ope-radores de multiplicação ou divisão.
+ Um método público division, que faz a divi-
+são inteira do objeto (dividendo) por D (divisor),
+calculando o quociente Q e o resto R.
+o Se o dividendo ou o divisor D forem 0:
+ se D for nulo, imprima uma mensagem
+de erro (divisão por zero) em cerr;
+ em qualquer caso, faça Q e R serem 0 e
+encerre a função. o Se o valor absoluto do objeto for menor que
+o valor absoluto do divisor (|objeto|<|D|),
+faça Q=0, R=objeto e encerre a função.
+o Inicialmente, faça Q e R serem 0 (zero).
+o Para cada dígito do dividendo, do mais sig-nificativo para o menos significativo:
+ Desloque R um dígito para a esquerda e
+acrescente o dígito do dividendo como
+novo dígito menos significativo de R.
+ Por subtrações sucessivas, calcule div,
+a divisão de R por |D| (entre 0 e 9).
+ Desloque Q um dígito para a esquerda e
+acrescente div como novo dígito menos
+significativo de Q.
+o Faça Q ser negativo se os sinais do divi-
+dendo e do divisor forem diferentes.
+oSeR
+
+=0,fa 
+c
+\c
+​
+ aRterosinaldodividendo.
+Divisão: A.division(D,Q,R) Q←0SE (A.isZero() OU D.isZero())
+| SE (D.isZero())
+| | Emite mensagem de erro | FIM SE
+∣R←0//Qpermanecezero
+| Encerra a função FIM SE
+absD←∣D∣//Paran 
+a
+~
+ orepetiroc 
+a
+ˊ
+ lculo
+SE (|A| < absD)
+∣R←A//Qpermanecezero
+| Encerra a função FIM SE
+R←0//Qpermanecezero
+// Do digito mais significativo ao
+// menos significativo do dividendo
+PARA i DE A.size()-1 ATÉ 0
+| // Desloca o resto à esquerda
+| // e acrescenta dígito
+∣SE(N 
+A
+~
+ O(R.isZero())R←R<<1
+∣R.d[0]←A.d[i]
+| // Divisão por subtrações sucessivas
+∣div←0
+∣ENQUANTO(R≥absD)
+∣∣R←R−absD
+∣∣div←div+1
+| FIM ENQUANTO
+| // Desloca o quociente à esquerda
+| // e acrescenta dígito
+∣SE(N 
+A
+~
+ O(Q.isZero())Q←Q<<1
+∣Q.d[0]←div
+FIM PARA
+// Determinação dos sinais
+Q.neg←(A.isNeg()
+
+=D.isNeg())
+SE(N 
+A
+~
+ O(R.isZero()))R.neg←A.isNeg()
+ Os operadores binários operator/ e opera-
+tor%, que retornam respectivamente o quoci-
+ente e o resto da divisão inteira de dois Bi-
+gInt, implementados usando o método divi-
+sion, sem repetir código.
+Após concluir essa parte, você deve validar (tes-
+te8) os operadores de deslocamento << e >>, a
+função division e os operadores aritméticos / e
+% em diversas situações, envolvendo números de
+diferentes valores aparecendo tanto à esquerda quanto à direita dos operadores binários:
+ Números positivos, negativos, de módulo uni-tário (+1 e -1) e nulos (0); e
+ Em situações que gerem resultados com valo-res pequenos, grandes e muito grandes
+https://lh3.googleusercontent.com/notebooklm/ANHLwAwOQgwi9UenE9LXVK6i1wDQlNmgxN6p0ctyq3GxidLUu_X5_pX59JdQgvTJoeRcSoK7RCKCaw3aErI8n45icYHIjIP55dL_PicHg80ztrFa56AseB4SuXiBivcJv34QDSbmflJx_A=w115-h47-v0
+https://lh3.googleusercontent.com/notebooklm/ANHLwAwySBwM2r4esvMJmoLFDU6GPd-SUSsf7aCNp9bIK_MAa1KTsHLrGgdZABuQBhEF1w76tWTVsGk5ixcYwv-Fwd6GVrDhC4rqiKcoTSy76vDfZayBDO5e8Gk7uRJTTVBsq1HHFr86bQ=w116-h48-v0
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE CENTRO DE TECNOLOGIA
+DEPARTAMENTO DE ENGENHARIA DE COMPUTAÇÃO E AUTOMAÇÃO
+A classe BigInt deve permitir compilar e execu-
+tar o programa principal de uma minicalculadora
+de BigInt que está disponível no SIGAA e que
+oferece as seguintes opções a cada iteração:
+ Entrar um novo BigInt:
+o ler usando o operator<< da classe BigInt
+(digitar a opção <); ou
+o ler em uma string e criar o BigInt a partir
+do construtor específico (digitar diretamen-te o número, em vez de uma das opções).
+ Somar os 2 últimos BigInt.
+ Subtrair os 2 últimos BigInt.
+ Multiplicar os 2 últimos BigInt.
+ Dividir os 2 últimos BigInt, retornando o quo-
+ciente.
+ Dividir os 2 últimos BigInt, retornando resto.
+ Dividir os 2 últimos BigInt, retornando tanto o
+quociente quanto o resto.
+ Calcular o fatorial do último BigInt.
+ Rotacionar à esquerda o penúltimo BigInt
+tantos dígitos quanto o último BigInt.
+ Rotacionar à direita o penúltimo BigInt tantos
+dígitos quanto o último BigInt.
+ Incrementar o último BigInt.
+ Decrementar o último BigInt.
+ Inverter o sinal do último BigInt.
+ Calcular o valor absoluto do último BigInt.
+ Trocar todos os BigInt de posição.
+ Terminar. ATENÇÃO: você não deve modificar o pro-grama principal da minicalculadora que está no SIGAA. Sua classe deve executá-lo corretamente da forma como está disponibilizado. ATENÇÃO: O objetivo final do projeto não é con-seguir executar a minicalculadora, mas sim de-senvolver a classe conforme especificado e usando boa programação. Portanto, todas as funcionalidades descritas nessa especificação devem ser implementadas, mesmo aquelas que não são necessárias para execução da minicalcu-ladora.
